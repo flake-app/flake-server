@@ -43,6 +43,10 @@
     ```
     $ npm i
     ```
+1.  navigate into the `/src` folder
+    ```
+    $ cd src/
+    ```
 1.  run migrations to get latest db changes
     ```
     $ npx knex migrate:latest
