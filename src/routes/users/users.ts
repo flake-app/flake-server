@@ -35,7 +35,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
       schema: getUserSchema as any,
     },
     async (request, reply) => {
-      const { id } = request.params as { id: string };
+      const { id } = request.params as { id: number };
 
       try {
         const user = await getUserById(id);
@@ -64,7 +64,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
       schema: deleteUserSchema as any,
     },
     async (request, reply) => {
-      const { id } = request.params as { id: string };
+      const { id } = request.params as { id: number };
 
       try {
         const user = await getUserById(id);
@@ -139,7 +139,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
       schema: updateUserSchema as any,
     },
     async (request, reply) => {
-      const { id } = request.params as { id: string };
+      const { id } = request.params as { id: number };
       const { first_name, last_name, email, password } = request.body as {
         first_name?: string;
         last_name?: string;

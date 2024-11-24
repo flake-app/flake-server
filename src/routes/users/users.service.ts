@@ -7,11 +7,11 @@ export async function getAllUsers() {
   return db("users").select("*");
 }
 
-export async function getUserById(id: string) {
+export async function getUserById(id: number) {
   return db("users").where({ id }).first();
 }
 
-export async function deleteUserById(id: string) {
+export async function deleteUserById(id: number) {
   const rowsDeleted = await db("users").where({ id }).del();
 
   if (rowsDeleted === 0) {
@@ -41,7 +41,7 @@ export async function updateUserById(
   updatedFirstName: string,
   updatedLastName: string,
   updatedPassword: string,
-  userId: string
+  userId: number
 ) {
   try {
     const updatedUser = await knex("user")
