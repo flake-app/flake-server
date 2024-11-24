@@ -1,21 +1,21 @@
 import Fastify, { FastifyInstance } from "fastify";
-import swagger from 'fastify-swagger';
+import fastifyOas from "fastify-oas";
 import { usersRoutes } from "./routes/users/users";
 
 const app = Fastify();
 
-// TODO: need to fix swagger UI for api docs
-app.register(swagger, {
-  routePrefix: '/api-docs',
+app.register(fastifyOas, {
+  routePrefix: '/docs',
   swagger: {
     info: {
-      title: 'Users API',
-      description: 'API for managing users',
+      title: 'flake api docs',
+      description: 'rest api',
       version: '1.0.0',
     },
     host: 'localhost:3000',
     schemes: ['http'],
   },
+  exposeRoute: true,
 });
 
 // healthcheck

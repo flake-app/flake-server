@@ -3,7 +3,7 @@
 ## tech stack
 
 - server/rest-api: [feathersjs](https://feathersjs.com/)
-- rest-api docs: [swagger](https://swagger.io/)
+- rest-api docs: [fastify-oas](https://github.com/SkeLLLa/fastify-oas)
 - db: [postgres](https://www.postgresql.org/)
 - db-migrations: [knexjs](https://knexjs.org/)
 - tests: [jest](https://jestjs.io/)
@@ -61,7 +61,7 @@
 
 - api url: http://localhost:3000
 - api healthcheck: http://localhost:3000/healthcheck
-- api docs: http://localhost:3000/docs TODO: still need to fix this
+- api docs: http://localhost:3000/docs
 
 ## running tests
 
