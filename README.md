@@ -2,7 +2,7 @@
 
 ## tech stack
 
-- server/rest-api: [feathersjs](https://feathersjs.com/)
+- server/rest-api: [fastify](https://fastify.dev/)
 - rest-api docs: [fastify-oas](https://github.com/SkeLLLa/fastify-oas)
 - db: [postgres](https://www.postgresql.org/)
 - db-migrations: [knexjs](https://knexjs.org/)
