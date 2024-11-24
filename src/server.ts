@@ -4,6 +4,9 @@ import { usersRoutes } from "./routes/users/users";
 
 const app = Fastify();
 
+// Fastify Open API
+// TODO: This actually has been deprecated and is no longer being updated
+// If someone can update this to fastify-swagger, that would be dope 👍
 app.register(fastifyOas, {
   routePrefix: '/docs',
   swagger: {
@@ -18,10 +21,10 @@ app.register(fastifyOas, {
   exposeRoute: true,
 });
 
-// healthcheck
+// Healthcheck
 async function healthCheck(fastify: FastifyInstance) {
   fastify.get("/healthcheck", async (_, reply) => {
-    reply.send({ status: "OK" });
+    reply.send({ status: "OK ✅" });
   });
 }
 
@@ -31,5 +34,5 @@ app.register(usersRoutes);
 
 app.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
   if (err) throw err;
-  console.log(`Server is running at ${address}`);
+  console.log(`🚀 Server is running at ${address}`);
 });

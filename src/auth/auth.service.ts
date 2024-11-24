@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-// hash password
+// Hash password
 const hashPassword = async (password: string): Promise<string> => {
   try {
     const saltRounds = 10;
@@ -11,7 +11,7 @@ const hashPassword = async (password: string): Promise<string> => {
   }
 };
 
-// compare plain password with hashed password
+// Compare plain password with hashed password
 const comparePassword = async (
   plainPassword: string,
   hashedPassword: string
