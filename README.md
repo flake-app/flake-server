@@ -32,31 +32,30 @@
 
 ## running the server
 
-> 1.  run docker containers
->
->     **TODO:** for now, only db is running on docker, will eventually add server
->
->     ```
->     $ docker compose up
->     ```
->
-> 1.  install packages
->     ```
->     $ npm i
->     ```
-> 1.  run migrations to get latest db changes
->     ```
->     $ npx knex migrate:latest
->     ```
-> 1.  (_only if running for the first time or if in need of clean original data_) run seeding
->     ```
->     $ npx knex seed:run
->     ```
->     **note**: to view initial db creation, please read `db/init.sql`
-> 1.  run the api server
->     ```
->     $ npm run dev
->     ```
+1.  run docker containers
+
+    **TODO:** for now, only db is running on docker, will eventually add server
+    ```
+    $ docker compose up
+    ```
+
+1.  install packages
+    ```
+    $ npm i
+    ```
+1.  run migrations to get latest db changes
+    ```
+    $ npx knex migrate:latest
+    ```
+1.  (_only if running for the first time or if in need of clean original data_) run seeding
+    ```
+    $ npx knex seed:run
+    ```
+    **note**: to view initial db creation, please read `db/init.sql`
+1.  run the api server
+    ```
+    $ npm run dev
+    ```
 
 ## api information
 
@@ -89,11 +88,11 @@ $ npm test tests/users.test.js
 ### db + knex
 
 1. when needing to modify anything db related (tables, columns, etc), please create a migration script
-   ```
-   $ npx knex migrate:make <name of migration file with description>
-   ```
+    ```
+    $ npx knex migrate:make <name of migration file with description>
+    ```
 1. this will create a file in the `./migrations` folder, please add changes in there and apply the changes afterwards
-   ```
-   $ npx knex migrate:latest
-   ```
+    ```
+    $ npx knex migrate:latest
+    ```
 1. check in and publish a pr!
