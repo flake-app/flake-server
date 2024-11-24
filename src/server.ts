@@ -1,6 +1,7 @@
 import Fastify, { FastifyInstance } from "fastify";
 import fastifyOas from "fastify-oas";
 import { usersRoutes } from "./routes/users/users";
+import { eventsRoutes } from "./routes/events/events";
 
 const app = Fastify();
 
@@ -46,6 +47,7 @@ async function healthCheck(fastify: FastifyInstance) {
 // Routes
 app.register(healthCheck);
 app.register(usersRoutes);
+app.register(eventsRoutes);
 
 app.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
   if (err) throw err;
