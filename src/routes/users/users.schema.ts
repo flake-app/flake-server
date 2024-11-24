@@ -10,7 +10,7 @@ export const getUsersSchema = {
           items: {
             type: "object",
             properties: {
-              id: { type: "string" },
+              id: { type: "number" },
               first_name: { type: "string" },
               last_name: { type: "string" },
               email: { type: "string" },
@@ -32,7 +32,7 @@ export const getUserSchema = {
   params: {
     type: "object",
     properties: {
-      id: { type: "string" },
+      id: { type: "number" },
     },
     required: ["id"],
   },
@@ -40,7 +40,7 @@ export const getUserSchema = {
     200: {
       type: "object",
       properties: {
-        id: { type: "string" },
+        id: { type: "number" },
         first_name: { type: "string" },
         last_name: { type: "string" },
         email: { type: "string" },
@@ -58,7 +58,7 @@ export const deleteUserSchema = {
   params: {
     type: "object",
     properties: {
-      id: { type: "string" },
+      id: { type: "number" },
     },
     required: ["id"],
   },
@@ -102,7 +102,7 @@ export const createUserSchema = {
     201: {
       type: "object",
       properties: {
-        id: { type: "string" },
+        id: { type: "number" },
         first_name: { type: "string" },
         last_name: { type: "string" },
         email: { type: "string", format: "email" },
@@ -126,7 +126,7 @@ export const updateUserSchema = {
   params: {
     type: "object",
     properties: {
-      id: { type: "string" },
+      id: { type: "number" },
     },
     required: ["id"],
   },
@@ -148,7 +148,7 @@ export const updateUserSchema = {
         user: {
           type: "object",
           properties: {
-            id: { type: "string" },
+            id: { type: "number" },
             first_name: { type: "string" },
             last_name: { type: "string" },
             email: { type: "string", format: "email" },
