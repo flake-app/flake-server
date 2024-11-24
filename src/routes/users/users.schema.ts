@@ -1,5 +1,6 @@
 export const getUsersSchema = {
   description: "Get list of all users",
+  tags: ["Users"],
   response: {
     200: {
       type: "object",
@@ -27,6 +28,7 @@ export const getUsersSchema = {
 
 export const getUserSchema = {
   description: "Get user by ID",
+  tags: ["Users"],
   params: {
     type: "object",
     properties: {
@@ -52,6 +54,7 @@ export const getUserSchema = {
 
 export const deleteUserSchema = {
   description: "Delete user by ID",
+  tags: ["Users"],
   params: {
     type: "object",
     properties: {
@@ -84,6 +87,7 @@ export const deleteUserSchema = {
 
 export const createUserSchema = {
   description: "Create new user",
+  tags: ["Users"],
   body: {
     type: "object",
     properties: {
@@ -118,6 +122,7 @@ export const createUserSchema = {
 
 export const updateUserSchema = {
   description: "Update existing user by ID",
+  tags: ["Users"],
   params: {
     type: "object",
     properties: {

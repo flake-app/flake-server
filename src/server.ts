@@ -22,13 +22,28 @@ app.register(fastifyOas, {
 });
 
 // Healthcheck
+const statusSchema = {
+  description: "Get status",
+  tags: ["Status"],
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        status: { type: "string" },
+      },
+    },
+  },
+} as const;
+
 async function healthCheck(fastify: FastifyInstance) {
-  fastify.get("/healthcheck", async (_, reply) => {
+  fastify.get("/healthcheck", {
+    schema: statusSchema as any,
+  }, async (_, reply) => {
     reply.send({ status: "OK ✅" });
   });
 }
 
-// routes
+// Routes
 app.register(healthCheck);
 app.register(usersRoutes);
 
