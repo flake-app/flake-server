@@ -53,5 +53,5 @@ app.register(userEventsRoutes)
 
 app.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
   if (err) throw err;
-  console.log(`🚀 Server is running at ${address}`);
+  console.log(`\n🚀 Server is running at ${address}\n`);
 });
