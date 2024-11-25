@@ -16,13 +16,12 @@ export async function userEventsRoutes(fastify: FastifyInstance) {
     }
   );
 
-
   fastify.patch(
     "/user-events/:id",
     {
-        schema: updateUserEventSchema as any, 
+      schema: updateUserEventSchema as any,
     },
-    async (request, reply) => { 
+    async (request, reply) => {
       const { id } = request.params as { id: number };
       const { attending } = request.body as {
         attending: null | boolean;
@@ -31,24 +30,24 @@ export async function userEventsRoutes(fastify: FastifyInstance) {
       try {
         const updatedUserEvent = await updateUserEventById(
           attending,
-          id 
+          id
         );
 
         if (!updatedUserEvent) {
-          return reply.status(404).send({ message: "User_events update failed"});
+          return reply.status(404).send({ message: "User_events update failed" });
         }
 
         reply
           .status(200)
-          .send({ message: "User_events updates successfully", user_event: updatedUserEvent});
+          .send({ message: "User_events updates successfully", user_event: updatedUserEvent });
 
       } catch (error: unknown) {
         if (error instanceof Error) {
-          reply 
+          reply
             .status(500)
-            .send({ message: "error updating user_event", error: error.message});
+            .send({ message: "error updating user_event", error: error.message });
         } else {
-          reply.status(500).send({ message: "Something broke bro"});
+          reply.status(500).send({ message: "Something broke bro" });
         }
       }
     }

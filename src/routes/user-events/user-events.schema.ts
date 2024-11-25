@@ -38,7 +38,7 @@ export const updateUserEventSchema = {
   body: {
     type: "object",
     properties: {
-      attending: { type: "boolean"},
+      attending: { type: "boolean" },
     },
     additionalProperties: false,
   },

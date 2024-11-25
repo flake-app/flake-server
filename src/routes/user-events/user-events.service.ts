@@ -23,13 +23,13 @@ export async function updateUserEventById(
       )
       .returning("*");
 
-    if (updatedUserEvent.length ===0) {
+    if (updatedUserEvent.length === 0) {
       //if no user_event was updated 
       return null;
     }
 
     return updatedUserEvent[0];
-  }catch(error){ 
+  } catch (error) {
     console.error("Error updating user_events:", error);
     throw new Error("Failed to update user_events");
   }
