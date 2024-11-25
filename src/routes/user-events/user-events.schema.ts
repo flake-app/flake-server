@@ -24,3 +24,56 @@ export const getUserEventsSchema = {
     },
   },
 } as const;
+
+export const updateUserEventSchema = {
+  description: "Update existing user event by ID",
+  tags: ["User Events"],
+  params: {
+    type: "object",
+    properties: {
+      id: { type: "number" },
+    },
+    required: ["id"],
+  },
+  body: {
+    type: "object",
+    properties: {
+      attending: { type: "boolean" },
+    },
+    additionalProperties: false,
+  },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+        user_event: {
+          type: "object",
+          properties: {
+            id: { type: "number" },
+            attending: { type: "boolean" },
+          },
+        },
+      },
+    },
+    404: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+      },
+    },
+    400: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+      },
+    },
+    500: {
+      type: "object",
+      properties: {
+        message: { type: "string" },
+        error: { type: "string" },
+      },
+    },
+  },
+} as const;
