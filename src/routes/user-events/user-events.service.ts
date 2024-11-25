@@ -12,7 +12,7 @@ export async function updateUserEventById(
   userEventId: number
 ) {
   try {
-    const updatedUserEvent = await knex("user_events")
+    const updatedUserEvent = await db("user_events")
       .where({ id: userEventId })
       .update(
         {
