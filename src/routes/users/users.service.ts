@@ -8,7 +8,12 @@ export async function getAllUsers() {
 }
 
 export async function getUserById(id: number) {
-  return db("users").where({ id }).first();
+  const user = await db("users").where({ id }).first();
+
+  if (user === 0) { 
+    throw new Error("User not found");
+  }
+  return user;
 }
 
 export async function deleteUserById(id: number) {
@@ -23,7 +28,7 @@ export async function createUser(user: {
   first_name: string;
   last_name: string;
   email: string;
-  hashed_pw: string;
+  password: string;
 }) {
   const [newUser] = await db("users")
     .insert({
@@ -44,7 +49,7 @@ export async function updateUserById(
   userId: number
 ) {
   try {
-    const updatedUser = await knex("user")
+    const updatedUser = await db("users")
       .where({ id: userId })
       .update(
         {
