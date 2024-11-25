@@ -21,13 +21,13 @@ export async function seed(knex: Knex): Promise<void> {
   ]);
 
   await knex("users").insert([
-    { first_name: 'Chak', last_name: 'Yeth', email: 'chak.yeth@gmail.com', hashed_pw: 'password' },
-    { first_name: 'Jenny', last_name: 'Duong', email: 'itsjennyduong@gmail.com', hashed_pw: 'password' },
-    { first_name: 'Vivian', last_name: 'Duong', email: 'mikovivian@gmail.com', hashed_pw: 'password' },
-    { first_name: 'Fish', last_name: 'Duong', email: 'coolcat16@gmail.com', hashed_pw: 'password' },
-    { first_name: 'Test1', last_name: 'Last1', email: 'test1@gmail.com', hashed_pw: 'password' },
-    { first_name: 'Test2', last_name: 'Last2', email: 'test2@gmail.com', hashed_pw: 'password' },
-    { first_name: 'Test3', last_name: 'Last3', email: 'test3@gmail.com', hashed_pw: 'password' },
+    { first_name: 'Chak', last_name: 'Yeth', email: 'chak.yeth@gmail.com', password: 'password' },
+    { first_name: 'Jenny', last_name: 'Duong', email: 'itsjennyduong@gmail.com', password: 'password' },
+    { first_name: 'Vivian', last_name: 'Duong', email: 'mikovivian@gmail.com', password: 'password' },
+    { first_name: 'Fish', last_name: 'Duong', email: 'coolcat16@gmail.com', password: 'password' },
+    { first_name: 'Test1', last_name: 'Last1', email: 'test1@gmail.com', password: 'password' },
+    { first_name: 'Test2', last_name: 'Last2', email: 'test2@gmail.com', password: 'password' },
+    { first_name: 'Test3', last_name: 'Last3', email: 'test3@gmail.com', password: 'password' },
   ]);
 
   await knex("events").insert([

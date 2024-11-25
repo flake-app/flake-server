@@ -1,6 +1,6 @@
 export const mockDb = {
   users: [
-    { id: "1", first_name: "John", last_name: "Doe", email: "john.doe@example.com", hashed_pw: "hashedpassword", created_at: new Date(), updated_at: new Date() },
+    { id: "1", first_name: "John", last_name: "Doe", email: "john.doe@example.com", password: "hashedpassword", created_at: new Date(), updated_at: new Date() },
   ],
 
   // Simulating select all users operation

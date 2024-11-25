@@ -117,7 +117,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
           first_name,
           last_name,
           email,
-          hashed_pw: hashedPassword,
+          password: hashedPassword,
         });
 
         reply.status(201).send(newUser);
