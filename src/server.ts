@@ -1,8 +1,8 @@
-import Fastify, { FastifyInstance } from "fastify";
-import fastifyOas from "fastify-oas";
-import { usersRoutes } from "./routes/users/users";
-import { eventsRoutes } from "./routes/events/events";
-import { userEventsRoutes } from "./routes/user-events/user-events";
+import Fastify, { FastifyInstance, FastifySchema } from 'fastify';
+import fastifyOas from 'fastify-oas';
+import { usersRoutes } from './routes/users/users';
+import { eventsRoutes } from './routes/events/events';
+import { userEventsRoutes } from './routes/user-events/user-events';
 
 const app = Fastify();
 
@@ -17,6 +17,8 @@ app.register(fastifyOas, {
       description: 'rest api',
       version: '1.0.0',
     },
+    consumes: ['application/json'],
+    produces: ['application/json'],
     host: 'localhost:3000',
     schemes: ['http'],
   },
@@ -25,33 +27,37 @@ app.register(fastifyOas, {
 
 // Healthcheck
 const statusSchema = {
-  description: "Get status",
-  tags: ["Status"],
+  description: 'Get status',
+  tags: ['Status'],
   response: {
     200: {
-      type: "object",
+      type: 'object',
       properties: {
-        status: { type: "string" },
+        status: { type: 'string' },
       },
     },
   },
 } as const;
 
 async function healthCheck(fastify: FastifyInstance) {
-  fastify.get("/healthcheck", {
-    schema: statusSchema as any,
-  }, async (_, reply) => {
-    reply.send({ status: "OK ✅" });
-  });
+  fastify.get(
+    '/healthcheck',
+    {
+      schema: statusSchema as FastifySchema,
+    },
+    async (_, reply) => {
+      reply.send({ status: 'OK ✅' });
+    }
+  );
 }
 
 // Routes
 app.register(healthCheck);
 app.register(usersRoutes);
 app.register(eventsRoutes);
-app.register(userEventsRoutes)
+app.register(userEventsRoutes);
 
-app.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
+app.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
   if (err) throw err;
   console.log(`\n🚀 Server is running at ${address}\n`);
 });

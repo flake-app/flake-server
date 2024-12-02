@@ -1,12 +1,12 @@
-import { FastifyInstance } from "fastify";
-import { getAllEvents, createEvent } from "./events.service";
-import { getEventsSchema, createEventSchema } from "./events.schema";
+import { FastifyInstance, FastifySchema } from 'fastify';
+import { getAllEvents, createEvent } from './events.service';
+import { getEventsSchema, createEventSchema } from './events.schema';
 
 export async function eventsRoutes(fastify: FastifyInstance) {
   fastify.get(
-    "/events",
+    '/events',
     {
-      schema: getEventsSchema as any,
+      schema: getEventsSchema as FastifySchema,
     },
     async (_, reply) => {
       const events = await getAllEvents();
@@ -17,29 +17,42 @@ export async function eventsRoutes(fastify: FastifyInstance) {
   );
 
   fastify.post(
-    "/events",
+    '/events',
     {
-      schema: createEventSchema as any,
+      schema: createEventSchema as FastifySchema,
     },
     async (request, reply) => {
-      const { created_by, event_name, description, start_time, end_time, status } = request.body as {
-        created_by: number; 
-        event_name: string; 
-        description: string; 
+      const {
+        created_by,
+        event_name,
+        description,
+        start_time,
+        end_time,
+        status,
+      } = request.body as {
+        created_by: number;
+        event_name: string;
+        description: string;
         start_time: string | Date; // ISO string or Date object for timestamps
-        end_time: string | Date; 
-        status: string; 
+        end_time: string | Date;
+        status: string;
       };
 
-      if (!event_name || !description || !status || !start_time || !end_time || !created_by) {
+      if (
+        !event_name ||
+        !description ||
+        !status ||
+        !start_time ||
+        !end_time ||
+        !created_by
+      ) {
         reply.status(500).send({
           message:
-            "All fields (reated_by, event_name, description, start_time, end_time, status) are required",
+            'All fields (reated_by, event_name, description, start_time, end_time, status) are required',
         });
       }
 
       try {
-       
         const newEvent = await createEvent({
           created_by,
           event_name,
@@ -54,9 +67,9 @@ export async function eventsRoutes(fastify: FastifyInstance) {
         if (error instanceof Error) {
           reply
             .status(500)
-            .send({ message: "Error creating event", error: error.message });
+            .send({ message: 'Error creating event', error: error.message });
         } else {
-          reply.status(500).send({ message: "An unknown error occurred" });
+          reply.status(500).send({ message: 'An unknown error occurred' });
         }
       }
     }

@@ -1,24 +1,27 @@
-// src/tests/users.service.mock.ts
-
+import { CreateUserModel, UpdateUserModel } from '../models';
 import { mockDb } from './mockDb';
 
-// Mock the service functions
-export const getUserById = async (id: string) => {
-  return mockDb.find("users", id);
+// Mock the service functions with correct typings
+export const getUserById = async (id: number) => {
+  // Expect number for id
+  return mockDb.find('users', id);
 };
 
 export const getAllUsers = async () => {
-  return mockDb.select("users");
+  return mockDb.select('users');
 };
 
-export const createUser = async (user: any) => {
-  return mockDb.insert("users", user);
+export const createUser = async (user: CreateUserModel) => {
+  // Use CreateUserModel for typing
+  return mockDb.insert('users', user);
 };
 
-export const updateUserById = async (id: string, userData: any) => {
-  return mockDb.update("users", id, userData);
+export const updateUserById = async (id: number, userData: UpdateUserModel) => {
+  // Expect number for id
+  return mockDb.update('users', id, userData);
 };
 
-export const deleteUserById = async (id: string) => {
-  return mockDb.delete("users", id);
+export const deleteUserById = async (id: number) => {
+  // Expect number for id
+  return mockDb.delete('users', id);
 };
