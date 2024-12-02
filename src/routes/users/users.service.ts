@@ -46,7 +46,7 @@ export async function updateUserById(updates: UpdateUserModel, userId: number) {
           ...updates,
           updated_at: db.fn.now(),
         },
-        ['id', 'first_name', 'last_name', 'email', 'password']
+        ['id', 'first_name', 'last_name', 'email', 'password'],
       )
       .returning('*');
 
