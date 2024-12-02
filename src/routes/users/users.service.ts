@@ -1,67 +1,54 @@
-import knex from "knex";
-import knexConfig from "../../knexfile";
+import knex from 'knex';
+import knexConfig from '../../knexfile';
+import { CreateUserModel, UpdateUserModel, UserModel } from '../../models';
 
 const db = knex(knexConfig.development);
 
-export async function getAllUsers() {
-  return db("users").select("*");
+export async function getAllUsers(): Promise<UserModel[]> {
+  return db('users').select('*');
 }
 
-export async function getUserById(id: number) {
-  const user = await db("users").where({ id }).first();
+export async function getUserById(id: number): Promise<UserModel | undefined> {
+  const user = await db('users').where({ id }).first();
 
-  if (user === 0) { 
-    throw new Error("User not found");
+  if (user === 0) {
+    throw new Error('User not found');
   }
   return user;
 }
 
 export async function deleteUserById(id: number) {
-  const rowsDeleted = await db("users").where({ id }).del();
+  const rowsDeleted = await db('users').where({ id }).del();
 
   if (rowsDeleted === 0) {
-    throw new Error("User not found");
+    throw new Error('User not found');
   }
 }
 
-export async function createUser(user: {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-}) {
-  const [newUser] = await db("users")
+export async function createUser(user: CreateUserModel): Promise<UserModel> {
+  const [newUser] = await db('users')
     .insert({
       ...user,
       created_at: new Date(),
       updated_at: new Date(),
     })
-    .returning("*");
+    .returning('*');
 
   return newUser;
 }
 
-export async function updateUserById(
-  updatedEmail: string,
-  updatedFirstName: string,
-  updatedLastName: string,
-  updatedPassword: string,
-  userId: number
-) {
+export async function updateUserById(updates: UpdateUserModel, userId: number) {
   try {
-    const updatedUser = await db("users")
+    const updatedUser = await db('users')
       .where({ id: userId })
       .update(
         {
-          first_name: updatedFirstName,
-          last_name: updatedLastName,
-          email: updatedEmail,
-          password: updatedPassword,
+          ...updates,
           updated_at: db.fn.now(),
         },
-        ["id", "first_name", "last_name", "email", "password"]
+        ['id', 'first_name', 'last_name', 'email', 'password'],
       )
-      .returning("*");
+      .returning('*');
 
     if (updatedUser.length === 0) {
       // if no user was updated (i.e., no user with that ID)
@@ -70,7 +57,7 @@ export async function updateUserById(
 
     return updatedUser[0];
   } catch (error) {
-    console.error("Error updating user:", error);
-    throw new Error("Failed to update user");
+    console.error('Error updating user:', error);
+    throw new Error('Failed to update user');
   }
 }

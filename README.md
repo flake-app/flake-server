@@ -35,6 +35,7 @@
 1.  run docker containers
 
     **TODO:** for now, only db is running on docker, will eventually add server
+
     ```
     $ docker compose up
     ```
@@ -69,34 +70,37 @@
 
 ## running tests
 
-**note 1**: need to implement tests, these are not working
-
-**note 2**: pls do not have the rest-api running when running tests as server ports may clash (i'll fix this later)
+to run all tests:
 
 ```
-$ npm test
+$ npx jest
 ```
 
 to run a specific test:
 
 ```
-$ npm test tests/users.test.js
+$ npx jest tests/users.test.js
 ```
 
 ## coding standards
 
-### rest-api
+### everything
 
 1. please make a new branch + new pr when making big changes. i am too poor to pay for a higher tier for github in order to disable git pushes into `develop`.
+1. before checking everything in, make sure all lint + prettier issues are resolved
+   ```
+   $ npx eslint .
+   $ npx prettier --check .
+   ```
 
 ### db + knex
 
 1. when needing to modify anything db related (tables, columns, etc), please create a migration script
-    ```
-    $ npx knex migrate:make <name of migration file with description>
-    ```
+   ```
+   $ npx knex migrate:make <name of migration file with description>
+   ```
 1. this will create a file in the `./migrations` folder, please add changes in there and apply the changes afterwards
-    ```
-    $ npx knex migrate:latest
-    ```
+   ```
+   $ npx knex migrate:latest
+   ```
 1. check in and publish a pr!

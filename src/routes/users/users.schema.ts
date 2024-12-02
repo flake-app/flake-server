@@ -1,180 +1,180 @@
 export const getUsersSchema = {
-  description: "Get list of all users",
-  tags: ["Users"],
+  description: 'Get list of all users',
+  tags: ['Users'],
   response: {
     200: {
-      type: "object",
+      type: 'object',
       properties: {
         users: {
-          type: "array",
+          type: 'array',
           items: {
-            type: "object",
+            type: 'object',
             properties: {
-              id: { type: "number" },
-              first_name: { type: "string" },
-              last_name: { type: "string" },
-              email: { type: "string" },
-              password: { type: "string" },
-              created_at: { type: "string", format: "date-time" },
-              updated_at: { type: "string", format: "date-time" },
+              id: { type: 'number' },
+              first_name: { type: 'string' },
+              last_name: { type: 'string' },
+              email: { type: 'string' },
+              password: { type: 'string' },
+              created_at: { type: 'string', format: 'date-time' },
+              updated_at: { type: 'string', format: 'date-time' },
             },
           },
         },
-        count: { type: "number" },
+        count: { type: 'number' },
       },
     },
   },
 } as const;
 
 export const getUserSchema = {
-  description: "Get user by ID",
-  tags: ["Users"],
+  description: 'Get user by ID',
+  tags: ['Users'],
   params: {
-    type: "object",
+    type: 'object',
     properties: {
-      id: { type: "number" },
+      id: { type: 'number' },
     },
-    required: ["id"],
+    required: ['id'],
   },
   response: {
     200: {
-      type: "object",
+      type: 'object',
       properties: {
-        id: { type: "number" },
-        first_name: { type: "string" },
-        last_name: { type: "string" },
-        email: { type: "string" },
-        password: { type: "string" },
-        created_at: { type: "string", format: "date-time" },
-        updated_at: { type: "string", format: "date-time" },
+        id: { type: 'number' },
+        first_name: { type: 'string' },
+        last_name: { type: 'string' },
+        email: { type: 'string' },
+        password: { type: 'string' },
+        created_at: { type: 'string', format: 'date-time' },
+        updated_at: { type: 'string', format: 'date-time' },
       },
     },
   },
 } as const;
 
 export const deleteUserSchema = {
-  description: "Delete user by ID",
-  tags: ["Users"],
+  description: 'Delete user by ID',
+  tags: ['Users'],
   params: {
-    type: "object",
+    type: 'object',
     properties: {
-      id: { type: "number" },
+      id: { type: 'number' },
     },
-    required: ["id"],
+    required: ['id'],
   },
   response: {
     200: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
+        message: { type: 'string' },
       },
     },
     404: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
+        message: { type: 'string' },
       },
     },
     500: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
-        error: { type: "string" },
+        message: { type: 'string' },
+        error: { type: 'string' },
       },
     },
   },
 } as const;
 
 export const createUserSchema = {
-  description: "Create new user",
-  tags: ["Users"],
+  description: 'Create new user',
+  tags: ['Users'],
   body: {
-    type: "object",
+    type: 'object',
     properties: {
-      first_name: { type: "string" },
-      last_name: { type: "string" },
-      email: { type: "string", format: "email" },
-      password: { type: "string" },
+      first_name: { type: 'string' },
+      last_name: { type: 'string' },
+      email: { type: 'string', format: 'email' },
+      password: { type: 'string' },
     },
-    required: ["first_name", "last_name", "email", "password"],
+    required: ['first_name', 'last_name', 'email', 'password'],
   },
   response: {
     201: {
-      type: "object",
+      type: 'object',
       properties: {
-        id: { type: "number" },
-        first_name: { type: "string" },
-        last_name: { type: "string" },
-        email: { type: "string", format: "email" },
-        created_at: { type: "string", format: "date-time" },
-        updated_at: { type: "string", format: "date-time" },
+        id: { type: 'number' },
+        first_name: { type: 'string' },
+        last_name: { type: 'string' },
+        email: { type: 'string', format: 'email' },
+        created_at: { type: 'string', format: 'date-time' },
+        updated_at: { type: 'string', format: 'date-time' },
       },
     },
     500: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
-        error: { type: "string" },
+        message: { type: 'string' },
+        error: { type: 'string' },
       },
     },
   },
 } as const;
 
 export const updateUserSchema = {
-  description: "Update existing user by ID",
-  tags: ["Users"],
+  description: 'Update existing user by ID',
+  tags: ['Users'],
   params: {
-    type: "object",
+    type: 'object',
     properties: {
-      id: { type: "number" },
+      id: { type: 'number' },
     },
-    required: ["id"],
+    required: ['id'],
   },
   body: {
-    type: "object",
+    type: 'object',
     properties: {
-      first_name: { type: "string" },
-      last_name: { type: "string" },
-      email: { type: "string", format: "email" },
-      password: { type: "string" },
+      first_name: { type: 'string' },
+      last_name: { type: 'string' },
+      email: { type: 'string', format: 'email' },
+      password: { type: 'string' },
     },
     additionalProperties: false,
   },
   response: {
     200: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
+        message: { type: 'string' },
         user: {
-          type: "object",
+          type: 'object',
           properties: {
-            id: { type: "number" },
-            first_name: { type: "string" },
-            last_name: { type: "string" },
-            email: { type: "string", format: "email" },
-            created_at: { type: "string", format: "date-time" },
-            updated_at: { type: "string", format: "date-time" },
+            id: { type: 'number' },
+            first_name: { type: 'string' },
+            last_name: { type: 'string' },
+            email: { type: 'string', format: 'email' },
+            created_at: { type: 'string', format: 'date-time' },
+            updated_at: { type: 'string', format: 'date-time' },
           },
         },
       },
     },
     404: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
+        message: { type: 'string' },
       },
     },
     400: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
+        message: { type: 'string' },
       },
     },
     500: {
-      type: "object",
+      type: 'object',
       properties: {
-        message: { type: "string" },
-        error: { type: "string" },
+        message: { type: 'string' },
+        error: { type: 'string' },
       },
     },
   },
