@@ -1,4 +1,4 @@
-name: CI - Lint, Test, and Prettier
+name: CI - Prettier, ESLint, Tests
 
 on:
   pull_request:
@@ -28,18 +28,18 @@ jobs:
       # Prettier Check
       - name: Check code formatting with Prettier
         run: npx prettier --check .
-        continue-on-error: false # Ensures failure on formatting issues
+        continue-on-error: false
 
       # ESLint Check
       - name: Lint code with ESLint
         run: npx eslint .
-        continue-on-error: false # Ensures failure on linting errors
+        continue-on-error: false
 
       # Jest Tests
       - name: Run Jest tests
         run: npx jest --ci --runInBand
-        continue-on-error: false # Ensures failure on test failures
-
+        continue-on-error: false
+      
       # Summary
       - name: Generate GitHub Action Summary
         if: failure()
