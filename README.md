@@ -87,10 +87,11 @@ $ npx jest tests/users.test.js
 ### everything
 
 1. please make a new branch + new pr when making big changes. i am too poor to pay for a higher tier for github in order to disable git pushes into `develop`.
-1. before checking everything in, make sure all lint + prettier issues are resolved
+1. before checking everything in, make sure all lint + prettier + test case issues are resolved
    ```
    $ npx eslint .
    $ npx prettier --check .
+   $ npx jest .
    ```
 
 ### db + knex
