@@ -1,4 +1,4 @@
-name: CI - Prettier, ESLint, Tests
+name: CI Pipeline
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint-test-prettier:
+  prettier:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,17 +25,64 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Prettier Check
       - name: Check code formatting with Prettier
         run: npx prettier --check .
         continue-on-error: false
+      
+      # Summary
+      - name: Generate GitHub Action Summary
+        if: failure()
+        run: echo "🚫 Prettier checks have failed! Please fix them before merging."
+  
+  lint:
+    runs-on: ubuntu-latest
+    needs: prettier
 
-      # ESLint Check
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Lint code with ESLint
         run: npx eslint .
         continue-on-error: false
+      
+      # Summary
+      - name: Generate GitHub Action Summary
+        if: failure()
+        run: echo "🚫 ESLint checks have failed! Please fix them before merging."
 
-      # Jest Tests
+  tests:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Run Jest tests
         run: npx jest --ci --runInBand
         continue-on-error: false
@@ -43,4 +90,4 @@ jobs:
       # Summary
       - name: Generate GitHub Action Summary
         if: failure()
-        run: echo "🚫 Some checks have failed! Please fix them before merging."
+        run: echo "🚫 Test cases have failed! Please fix them before merging."
