@@ -1,0 +1,46 @@
+name: CI - Lint, Test, and Prettier
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-test-prettier:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16, 18, 20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      # Prettier Check
+      - name: Check code formatting with Prettier
+        run: npx prettier --check .
+        continue-on-error: false # Ensures failure on formatting issues
+
+      # ESLint Check
+      - name: Lint code with ESLint
+        run: npx eslint .
+        continue-on-error: false # Ensures failure on linting errors
+
+      # Jest Tests
+      - name: Run Jest tests
+        run: npx jest --ci --runInBand
+        continue-on-error: false # Ensures failure on test failures
+      
+      # Summary
+      - name: Generate GitHub Action Summary
+        if: failure()
+        run: echo "🚫 Some checks have failed! Please fix them before merging."
