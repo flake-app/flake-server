@@ -39,7 +39,7 @@ jobs:
       - name: Run Jest tests
         run: npx jest --ci --runInBand
         continue-on-error: false
-      
+
       # Summary
       - name: Generate GitHub Action Summary
         if: failure()
