@@ -28,12 +28,12 @@ jobs:
       - name: Check code formatting with Prettier
         run: npx prettier --check .
         continue-on-error: false
-      
+
       # Summary
       - name: Generate GitHub Action Summary
         if: failure()
         run: echo "🚫 Prettier checks have failed! Please fix them before merging."
-  
+
   lint:
     runs-on: ubuntu-latest
     needs: prettier
@@ -57,7 +57,7 @@ jobs:
       - name: Lint code with ESLint
         run: npx eslint .
         continue-on-error: false
-      
+
       # Summary
       - name: Generate GitHub Action Summary
         if: failure()
