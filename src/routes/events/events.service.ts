@@ -1,5 +1,5 @@
 import knex from 'knex';
-import knexConfig from '../../knexfile'
+import knexConfig from '../../knexfile';
 import { EventModel } from '../../models';
 
 const db = knex(knexConfig.development);
@@ -8,7 +8,9 @@ export async function getAllEvents() {
   return db('events').select('*');
 }
 
-export async function getEventById(id: number): Promise<EventModel | undefined> {
+export async function getEventById(
+  id: number
+): Promise<EventModel | undefined> {
   const event = await db('events').where({ id }).first();
 
   if (event === 0) {

@@ -34,14 +34,14 @@ export const getEventSchema = {
   params: {
     type: 'object',
     properties: {
-      id: { type: 'number'},
-      },
-      required: ['id'],
+      id: { type: 'number' },
     },
-    response: {
-      200: {
-        type: 'object',
-        properties: {
+    required: ['id'],
+  },
+  response: {
+    200: {
+      type: 'object',
+      properties: {
         id: { type: 'number' },
         created_by: { type: 'number' },
         event_name: { type: 'string' },
@@ -51,10 +51,10 @@ export const getEventSchema = {
         status: { type: 'string' },
         created_at: { type: 'string', format: 'date-time' },
         updated_at: { type: 'string', format: 'date-time' },
-      }
-    }
-  }
-} as const; 
+      },
+    },
+  },
+} as const;
 
 export const deleteEventSchema = {
   description: 'Delete event by ID',
@@ -88,7 +88,6 @@ export const deleteEventSchema = {
     },
   },
 } as const;
-
 
 export const createEventSchema = {
   description: 'Create new event',
