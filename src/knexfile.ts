@@ -11,10 +11,10 @@ const config: { [key: string]: Knex.Config } = {
       database: process.env.DB_NAME || 'flake-db',
     },
     migrations: {
-      directory: './db/migrations',
+      directory: './src/db/migrations',
     },
     seeds: {
-      directory: './db/seeds',
+      directory: './src/db/seeds',
     },
   },
 

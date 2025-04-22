@@ -40,13 +40,11 @@
     $ docker compose up
     ```
 
+1.  in another terminal, make sure you're in the root directory of `flake-server`
+
 1.  install packages
     ```
     $ npm i
-    ```
-1.  navigate into the `/src` folder
-    ```
-    $ cd src/
     ```
 1.  run migrations to get latest db changes
     ```
@@ -56,7 +54,7 @@
     ```
     $ npx knex seed:run
     ```
-    **note**: to view initial db creation, please read `db/init.sql`
+    **note**: to view initial db creation, please read `src/db/init.sql`
 1.  run the api server
     ```
     $ npm run start:dev
