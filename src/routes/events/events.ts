@@ -76,11 +76,9 @@ export async function eventsRoutes(fastify: FastifyInstance) {
         event_name = event.event_name;
 
         await deleteEventById(id);
-        reply
-          .status(200)
-          .send({
-            message: `Event id ${id} (${event_name}) deleted successfully`,
-          });
+        reply.status(200).send({
+          message: `Event id ${id} (${event_name}) deleted successfully`,
+        });
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
