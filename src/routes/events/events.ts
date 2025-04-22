@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifySchema } from 'fastify';
-import { getAllEvents, createEvent } from './events.service';
-import { getEventsSchema, createEventSchema } from './events.schema';
+import { getAllEvents, createEvent, getEventById, deleteEventById } from './events.service';
+import { getEventsSchema, getEventSchema, createEventSchema, deleteEventSchema } from './events.schema'
+import { EventModel } from '../../models';
 
 export async function eventsRoutes(fastify: FastifyInstance) {
   fastify.get(
@@ -9,12 +10,76 @@ export async function eventsRoutes(fastify: FastifyInstance) {
       schema: getEventsSchema as FastifySchema,
     },
     async (_, reply) => {
-      const events = await getAllEvents();
+      const events = (await getAllEvents()) as EventModel[];
       const eventCount = events.length;
 
       reply.send({ events, count: eventCount });
     }
   );
+
+   fastify.get(
+      '/events/:id',
+      {
+        schema: getEventSchema as FastifySchema,
+      },
+      async (request, reply) => {
+        const { id } = request.params as { id: number };
+  
+        try {
+          const event = (await getEventById(id)) as EventModel[] | undefined;
+  
+          if (!event) {
+            reply.status(404).send({ message: 'Event not found' });
+            return;
+          }
+  
+          reply.status(200).send(event);
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            reply
+              .status(500)
+              .send({ message: 'Error fetching event', error: error.message });
+          } else {
+            reply.status(500).send({ message: 'An unknown error occurred' });
+          }
+        }
+      }
+    );
+  
+   fastify.delete(
+      '/events/:id',
+      {
+        schema: deleteEventSchema as FastifySchema,
+      },
+      async (request, reply) => {
+        const { id } = request.params as { id: number }
+        let event_name;
+  
+        try {
+          const event = await getEventById(id);
+
+          if (!event) {
+            reply.status(404).send({ message: 'Event not found' });
+            return;
+          }
+
+          event_name = event.event_name;
+
+          await deleteEventById(id);
+          reply
+            .status(200)
+            .send({ message: `Event id ${id} (${event_name}) deleted successfully` });
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            reply
+              .status(500)
+              .send({ message: 'Error deleting event', error: error.message });
+          } else {
+            reply.status(500).send({ message: 'An unknown error occurred' });
+          }
+        }
+      }
+    );
 
   fastify.post(
     '/events',

@@ -1,5 +1,6 @@
 import knex from 'knex';
-import knexConfig from '../../knexfile';
+import knexConfig from '../../knexfile'
+import { EventModel } from '../../models';
 
 const db = knex(knexConfig.development);
 
@@ -7,13 +8,21 @@ export async function getAllEvents() {
   return db('events').select('*');
 }
 
-export async function getEventByID(id: number) {
-  const event = await db('users').where({ id }).first();
+export async function getEventById(id: number): Promise<EventModel | undefined> {
+  const event = await db('events').where({ id }).first();
 
   if (event === 0) {
     throw new Error('Event not found');
   }
   return event;
+}
+
+export async function deleteEventById(id: number) {
+  const rowsDeleted = await db('events').where({ id }).del();
+
+  if (rowsDeleted === 0) {
+    throw new Error('Event not found');
+  }
 }
 
 export async function createEvent(event: {
