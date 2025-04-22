@@ -47,7 +47,7 @@ async function healthCheck(fastify: FastifyInstance) {
     },
     async (_, reply) => {
       reply.send({ status: 'OK ✅' });
-    },
+    }
   );
 }
 

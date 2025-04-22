@@ -27,7 +27,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
       const userCount = users.length;
 
       reply.send({ users, count: userCount });
-    },
+    }
   );
 
   fastify.get(
@@ -56,7 +56,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
           reply.status(500).send({ message: 'An unknown error occurred' });
         }
       }
-    },
+    }
   );
 
   fastify.delete(
@@ -88,7 +88,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
           reply.status(500).send({ message: 'An unknown error occurred' });
         }
       }
-    },
+    }
   );
 
   fastify.post(
@@ -131,7 +131,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
           reply.status(500).send({ message: 'An unknown error occurred' });
         }
       }
-    },
+    }
   );
 
   fastify.patch(
@@ -159,7 +159,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
               ? await hashPassword(updates.password)
               : existingUser.password,
           },
-          id,
+          id
         );
 
         if (!updatedUser) {
@@ -178,6 +178,6 @@ export async function usersRoutes(fastify: FastifyInstance) {
           reply.status(500).send({ message: 'An unknown error occurred' });
         }
       }
-    },
+    }
   );
 }

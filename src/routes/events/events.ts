@@ -13,7 +13,7 @@ export async function eventsRoutes(fastify: FastifyInstance) {
       const eventCount = events.length;
 
       reply.send({ events, count: eventCount });
-    },
+    }
   );
 
   fastify.post(
@@ -72,6 +72,6 @@ export async function eventsRoutes(fastify: FastifyInstance) {
           reply.status(500).send({ message: 'An unknown error occurred' });
         }
       }
-    },
+    }
   );
 }

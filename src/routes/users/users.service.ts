@@ -5,11 +5,28 @@ import { CreateUserModel, UpdateUserModel, UserModel } from '../../models';
 const db = knex(knexConfig.development);
 
 export async function getAllUsers(): Promise<UserModel[]> {
-  return db('users').select('*');
+  return db('users').select(
+    'id',
+    'first_name',
+    'last_name',
+    'email',
+    'created_at',
+    'updated_at'
+  );
 }
 
 export async function getUserById(id: number): Promise<UserModel | undefined> {
-  const user = await db('users').where({ id }).first();
+  const user = await db('users')
+    .select(
+      'id',
+      'first_name',
+      'last_name',
+      'email',
+      'created_at',
+      'updated_at'
+    )
+    .where({ id })
+    .first();
 
   if (user === 0) {
     throw new Error('User not found');
@@ -46,7 +63,7 @@ export async function updateUserById(updates: UpdateUserModel, userId: number) {
           ...updates,
           updated_at: db.fn.now(),
         },
-        ['id', 'first_name', 'last_name', 'email', 'password'],
+        ['id', 'first_name', 'last_name', 'email', 'password']
       )
       .returning('*');
 
