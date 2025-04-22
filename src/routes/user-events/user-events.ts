@@ -16,7 +16,7 @@ export async function userEventsRoutes(fastify: FastifyInstance) {
       const eventCount = events.length;
 
       reply.send({ events, count: eventCount });
-    },
+    }
   );
 
   fastify.patch(
@@ -53,6 +53,6 @@ export async function userEventsRoutes(fastify: FastifyInstance) {
           reply.status(500).send({ message: 'Something broke bro' });
         }
       }
-    },
+    }
   );
 }

@@ -9,7 +9,7 @@ export async function getAllUserEvents() {
 
 export async function updateUserEventById(
   updatedAttending: null | boolean,
-  userEventId: number,
+  userEventId: number
 ) {
   try {
     const updatedUserEvent = await db('user_events')
@@ -19,7 +19,7 @@ export async function updateUserEventById(
           attending: updatedAttending,
           updated_at: db.fn.now(),
         },
-        ['id', 'attending'],
+        ['id', 'attending']
       )
       .returning('*');
 
