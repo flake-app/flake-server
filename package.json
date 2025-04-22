@@ -4,12 +4,27 @@
   "description": "## tech stack",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "start:dev": "nodemon --exec ts-node src/server.ts",
     "test": "jest",
-    "lint": "eslint 'src/**/*.{ts, tsx}'"
+    "lint": "eslint 'src/**/*.{ts, tsx}'",
+    "prettier": "npx prettier --write ."
   },
   "keywords": [],
-  "author": "",
+  "author": "flake-team",
+  "contributors": [
+    {
+      "name": "Chak Yeth",
+      "email": "chak.yeth@gmail.com"
+    },
+    {
+      "name": "Jenn Duong",
+      "email": "itsjennyduong@gmail.com"
+    },
+    {
+      "name": "Vivian Duong",
+      "email": "mikovivian@gmail.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

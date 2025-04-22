@@ -59,7 +59,7 @@
     **note**: to view initial db creation, please read `db/init.sql`
 1.  run the api server
     ```
-    $ npm run dev
+    $ npm run start:dev
     ```
 
 ## api information
