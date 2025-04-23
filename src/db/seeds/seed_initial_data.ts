@@ -1,5 +1,5 @@
 import { Knex } from 'knex';
-import { hashPassword } from '../../auth/auth.service';
+import { hashPassword } from '../../util/utils';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries

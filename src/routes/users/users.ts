@@ -14,7 +14,7 @@ import {
   updateUserSchema,
 } from './users.schema';
 import { UserModel, CreateUserModel, UpdateUserModel } from '../../models';
-import { hashPassword } from '../../auth/auth.service';
+import { hashPassword } from '../../util/utils';
 
 export async function usersRoutes(fastify: FastifyInstance) {
   fastify.get(
