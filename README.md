@@ -30,59 +30,57 @@
     ```
 - clone the repo
 
+## environment
+- update the `.env` file to use your proper username and password
+
 ## running the server
-
-1.  run docker containers
-
-    **TODO:** for now, only db is running on docker, will eventually add server
-
-    ```
-    docker compose up
-    ```
-
-1.  in another terminal, make sure you're in the root directory of `flake-server`
 
 1.  install packages
     ```
     npm i
     ```
-1.  run migrations to get latest db changes
-    ```
-    npx knex migrate:latest
-    ```
-1.  (_only if running for the first time or if in need of clean original data_) run seeding
-    ```
-    npx knex seed:run
-    ```
-    **note**: to view initial db creation, please read `src/db/init.sql`
 1.  run the api server
     ```
     npm run start:dev
     ```
 
-## api information
+### api information
 
 - api url: http://localhost:3000
 - api healthcheck: http://localhost:3000/healthcheck
 - api docs: http://localhost:3000/docs
 
+## database
+both development and production databases are hosted on [neon.tech](https://neon.tech)
+
+1. when needing to modify anything db related (tables, columns, etc), please create a migration script
+   ```
+   npm run knex:make <name of migration file with description>
+   ```
+
+   this will create a file in `./src/db/migrations`, please add changes in there
+1. run the following command to apply the change to the `development` database on neon
+   ```
+   npm run knex:migrate --env development
+   ```
+
+> **_NOTE:_** If there is ever a time the database needs to be reseeded/reset with initial data, you can run `npm run knex:seed --env development`
+>
+> **WARNING:** please do not run unless absolutely necessary
+
 ## running tests
 
-to run all tests:
+- to run all tests:
+    ```
+    npm run test
+    ```
 
-```
-npm run test
-```
-
-to run a specific test (example):
-
-```
-npm run test tests/users.test.ts
-```
+- to run a specific test (example):
+    ```
+    npm run test tests/users.test.ts
+    ```
 
 ## coding standards
-
-### everything
 
 1. make a new branch + new pr when making big changes
 1. before checking everything in, make sure all lint + prettier + test case issues are resolved
@@ -91,15 +89,4 @@ npm run test tests/users.test.ts
    npm run prettier:check
    npm run test
    ```
-
-### db + knex
-
-1. when needing to modify anything db related (tables, columns, etc), please create a migration script
-   ```
-   npx knex migrate:make <name of migration file with description>
-   ```
-1. this will create a file in the `./migrations` folder, please add changes in there and apply the changes afterwards
-   ```
-   npx knex migrate:latest
-   ```
-1. check in and publish a pr!
+1. make sure you're not checking in any of your personal credentials (i.e. `.env` changes)

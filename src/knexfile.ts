@@ -1,4 +1,7 @@
 import type { Knex } from 'knex';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const config: { [key: string]: Knex.Config } = {
   development: {
@@ -9,6 +12,7 @@ const config: { [key: string]: Knex.Config } = {
       user: process.env.DB_USER || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'flake-db',
+      ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
     },
     migrations: {
       directory: './src/db/migrations',
