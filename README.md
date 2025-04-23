@@ -31,6 +31,7 @@
 - clone the repo
 
 ## environment
+
 - update the `.env` file to use your proper username and password
 
 ## running the server
@@ -51,14 +52,17 @@
 - api docs: http://localhost:3000/docs
 
 ## database
+
 both development and production databases are hosted on [neon.tech](https://neon.tech)
 
 1. when needing to modify anything db related (tables, columns, etc), please create a migration script
+
    ```
    npm run knex:make <name of migration file with description>
    ```
 
    this will create a file in `./src/db/migrations`, please add changes in there
+
 1. run the following command to apply the change to the `development` database on neon
    ```
    npm run knex:migrate --env development
@@ -71,14 +75,15 @@ both development and production databases are hosted on [neon.tech](https://neon
 ## running tests
 
 - to run all tests:
-    ```
-    npm run test
-    ```
+
+  ```
+  npm run test
+  ```
 
 - to run a specific test (example):
-    ```
-    npm run test tests/users.test.ts
-    ```
+  ```
+  npm run test tests/users.test.ts
+  ```
 
 ## coding standards
 
