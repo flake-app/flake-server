@@ -1,4 +1,5 @@
 import { Knex } from 'knex';
+import { hashPassword } from '../../auth/auth.service';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
@@ -35,48 +36,58 @@ export async function seed(knex: Knex): Promise<void> {
     },
   ]);
 
+  const hashedPassword1 = await hashPassword('password1');
+  const hashedPassword2 = await hashPassword('password2');
+  const hashedPassword3 = await hashPassword('password3');
+
   await knex('users').insert([
     {
       first_name: 'Chak',
       last_name: 'Yeth',
       email: 'chak.yeth@gmail.com',
-      password: 'password',
+      password: hashedPassword1,
     },
     {
       first_name: 'Jenny',
       last_name: 'Duong',
       email: 'itsjennyduong@gmail.com',
-      password: 'password',
+      password: hashedPassword2,
     },
     {
       first_name: 'Vivian',
       last_name: 'Duong',
       email: 'mikovivian@gmail.com',
-      password: 'password',
+      password: hashedPassword3,
     },
     {
       first_name: 'Fish',
-      last_name: 'Duong',
+      last_name: 'Yeth',
       email: 'coolcat16@gmail.com',
-      password: 'password',
+      password: hashedPassword1,
+    },
+    {
+      first_name: 'Egg',
+      last_name: 'Duong',
+      email: 'doggydog69@gmail.com',
+      password: hashedPassword2,
     },
     {
       first_name: 'Test1',
       last_name: 'Last1',
       email: 'test1@gmail.com',
-      password: 'password',
+      password: hashedPassword1,
     },
     {
       first_name: 'Test2',
       last_name: 'Last2',
       email: 'test2@gmail.com',
-      password: 'password',
+      password: hashedPassword2,
     },
     {
       first_name: 'Test3',
       last_name: 'Last3',
       email: 'test3@gmail.com',
-      password: 'password',
+      password: hashedPassword3,
     },
   ]);
 
