@@ -12,6 +12,7 @@ import {
   deleteEventSchema,
 } from './events.schema';
 import { EventModel } from '../../models';
+import { STATUS_CODES } from '../../util/constants';
 
 export async function eventsRoutes(fastify: FastifyInstance) {
   fastify.get(
@@ -39,18 +40,22 @@ export async function eventsRoutes(fastify: FastifyInstance) {
         const event = (await getEventById(id)) as EventModel[] | undefined;
 
         if (!event) {
-          reply.status(404).send({ message: 'Event not found' });
+          reply
+            .status(STATUS_CODES.NOT_FOUND)
+            .send({ message: 'Event not found' });
           return;
         }
 
-        reply.status(200).send(event);
+        reply.status(STATUS_CODES.OK).send(event);
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error fetching event', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }
@@ -69,23 +74,27 @@ export async function eventsRoutes(fastify: FastifyInstance) {
         const event = await getEventById(id);
 
         if (!event) {
-          reply.status(404).send({ message: 'Event not found' });
+          reply
+            .status(STATUS_CODES.NOT_FOUND)
+            .send({ message: 'Event not found' });
           return;
         }
 
         event_name = event.event_name;
 
         await deleteEventById(id);
-        reply.status(200).send({
+        reply.status(STATUS_CODES.OK).send({
           message: `Event id ${id} (${event_name}) deleted successfully`,
         });
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error deleting event', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }
@@ -121,7 +130,7 @@ export async function eventsRoutes(fastify: FastifyInstance) {
         !end_time ||
         !created_by
       ) {
-        reply.status(500).send({
+        reply.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
           message:
             'All fields (reated_by, event_name, description, start_time, end_time, status) are required',
         });
@@ -141,10 +150,12 @@ export async function eventsRoutes(fastify: FastifyInstance) {
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error creating event', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }

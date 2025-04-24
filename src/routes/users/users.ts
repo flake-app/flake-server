@@ -15,6 +15,7 @@ import {
 } from './users.schema';
 import { UserModel, CreateUserModel, UpdateUserModel } from '../../models';
 import { hashPassword } from '../../util/utils';
+import { STATUS_CODES } from '../../util/constants';
 
 export async function usersRoutes(fastify: FastifyInstance) {
   fastify.get(
@@ -42,18 +43,22 @@ export async function usersRoutes(fastify: FastifyInstance) {
         const user = (await getUserById(id)) as UserModel | undefined;
 
         if (!user) {
-          reply.status(404).send({ message: 'User not found' });
+          reply
+            .status(STATUS_CODES.NOT_FOUND)
+            .send({ message: 'User not found' });
           return;
         }
 
-        reply.status(200).send(user);
+        reply.status(STATUS_CODES.OK).send(user);
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error fetching user', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }
@@ -71,21 +76,25 @@ export async function usersRoutes(fastify: FastifyInstance) {
         const user = await getUserById(id);
 
         if (!user) {
-          reply.status(404).send({ message: 'User not found' });
+          reply
+            .status(STATUS_CODES.NOT_FOUND)
+            .send({ message: 'User not found' });
           return;
         }
 
         await deleteUserById(id);
         reply
-          .status(200)
+          .status(STATUS_CODES.OK)
           .send({ message: `User with ID ${id} deleted successfully` });
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error deleting user', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }
@@ -105,7 +114,7 @@ export async function usersRoutes(fastify: FastifyInstance) {
       };
 
       if (!first_name || !last_name || !email || !password) {
-        reply.status(500).send({
+        reply.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
           message:
             'All fields (first_name, last_name, email, password) are required',
         });
@@ -125,10 +134,12 @@ export async function usersRoutes(fastify: FastifyInstance) {
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error creating user', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }
@@ -147,7 +158,9 @@ export async function usersRoutes(fastify: FastifyInstance) {
         const existingUser = await getUserById(id);
 
         if (!existingUser) {
-          return reply.status(404).send({ message: 'User not found' });
+          return reply
+            .status(STATUS_CODES.NOT_FOUND)
+            .send({ message: 'User not found' });
         }
 
         const updatedUser = await updateUserById(
@@ -163,19 +176,23 @@ export async function usersRoutes(fastify: FastifyInstance) {
         );
 
         if (!updatedUser) {
-          return reply.status(404).send({ message: 'User update failed' });
+          return reply
+            .status(STATUS_CODES.NOT_FOUND)
+            .send({ message: 'User update failed' });
         }
 
         reply
-          .status(200)
+          .status(STATUS_CODES.OK)
           .send({ message: 'User updated successfully', user: updatedUser });
       } catch (error: unknown) {
         if (error instanceof Error) {
           reply
-            .status(500)
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
             .send({ message: 'Error updating user', error: error.message });
         } else {
-          reply.status(500).send({ message: 'An unknown error occurred' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'An unknown error occurred' });
         }
       }
     }
