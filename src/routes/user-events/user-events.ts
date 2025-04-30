@@ -4,6 +4,7 @@ import {
   getUserEventsSchema,
   updateUserEventSchema,
 } from './user-events.schema';
+import { STATUS_CODES } from '../../util/constants';
 
 export async function userEventsRoutes(fastify: FastifyInstance) {
   fastify.get(
@@ -39,18 +40,20 @@ export async function userEventsRoutes(fastify: FastifyInstance) {
             .send({ message: 'User_events update failed' });
         }
 
-        reply.status(200).send({
+        reply.status(STATUS_CODES.OK).send({
           message: 'User_events updates successfully',
           user_event: updatedUserEvent,
         });
       } catch (error: unknown) {
         if (error instanceof Error) {
-          reply.status(500).send({
+          reply.status(STATUS_CODES.INTERNAL_SERVER_ERROR).send({
             message: 'error updating user_event',
             error: error.message,
           });
         } else {
-          reply.status(500).send({ message: 'Something broke bro' });
+          reply
+            .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
+            .send({ message: 'Something broke bro' });
         }
       }
     }
