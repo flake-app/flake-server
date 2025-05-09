@@ -161,7 +161,7 @@ export const updateEventSchema = {
     200: {
       type: 'object',
       properties: {
-        message: {type: 'string'},
+        message: { type: 'string' },
         event: {
           type: 'object',
           properties: {
@@ -173,8 +173,8 @@ export const updateEventSchema = {
             status: { type: 'string' },
             created_at: { type: 'string', format: 'date-time' },
             updated_at: { type: 'string', format: 'date-time' },
-          }
-        }
+          },
+        },
       },
     },
     404: {

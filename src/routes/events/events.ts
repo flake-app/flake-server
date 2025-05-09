@@ -4,14 +4,14 @@ import {
   createEvent,
   getEventById,
   deleteEventById,
-  updateEventById
+  updateEventById,
 } from './events.service';
 import {
   getEventsSchema,
   getEventSchema,
   createEventSchema,
   deleteEventSchema,
-  updateEventSchema
+  updateEventSchema,
 } from './events.schema';
 import { EventModel, UpdateEventModel } from '../../models';
 import { STATUS_CODES } from '../../util/constants';

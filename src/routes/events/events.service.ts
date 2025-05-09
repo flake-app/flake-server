@@ -46,7 +46,10 @@ export async function createEvent(event: {
   return newEvent;
 }
 
-export async function updateEventById(updates: UpdateEventModel, eventId: number) {
+export async function updateEventById(
+  updates: UpdateEventModel,
+  eventId: number
+) {
   try {
     const updateEvent = await db('events')
       .where({ id: eventId })
@@ -55,7 +58,15 @@ export async function updateEventById(updates: UpdateEventModel, eventId: number
           ...updates,
           updated_at: db.fn.now(),
         },
-        ['id', 'event_name', 'description', 'start_time', 'end_time', 'status', 'created_by']
+        [
+          'id',
+          'event_name',
+          'description',
+          'start_time',
+          'end_time',
+          'status',
+          'created_by',
+        ]
       )
       .returning('*');
 
