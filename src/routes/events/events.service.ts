@@ -1,6 +1,6 @@
 import knex from 'knex';
 import knexConfig from '../../knexfile';
-import { EventModel } from '../../models';
+import { EventModel, UpdateEventModel } from '../../models';
 
 const db = knex(knexConfig.development);
 
@@ -44,4 +44,29 @@ export async function createEvent(event: {
     .returning('*');
 
   return newEvent;
+}
+
+export async function updateEventById(updates: UpdateEventModel, eventId: number) {
+  try {
+    const updateEvent = await db('events')
+      .where({ id: eventId })
+      .update(
+        {
+          ...updates,
+          updated_at: db.fn.now(),
+        },
+        ['id', 'event_name', 'description', 'start_time', 'end_time', 'status', 'created_by']
+      )
+      .returning('*');
+
+    if (updateEvent.length === 0) {
+      // if no event was updated (i.e., no event with that ID)
+      return null;
+    }
+
+    return updateEvent[0];
+  } catch (error) {
+    console.error('Error updating event:', error);
+    throw new Error('Failed to update event');
+  }
 }

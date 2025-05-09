@@ -134,3 +134,67 @@ export const createEventSchema = {
     },
   },
 } as const;
+
+export const updateEventSchema = {
+  description: 'Update existing event by ID',
+  tags: ['Events'],
+  params: {
+    type: 'object',
+    properties: {
+      id: { type: 'number' },
+    },
+    required: ['id'],
+  },
+  body: {
+    type: 'object',
+    properties: {
+      event_name: { type: 'string' },
+      description: { type: 'string' },
+      start_time: { type: 'string', format: 'date-time' },
+      end_time: { type: 'string', format: 'date-time' },
+      status: { type: 'string' },
+      created_by: { type: 'number' },
+    },
+    additionalProperties: false,
+  },
+  response: {
+    200: {
+      type: 'object',
+      properties: {
+        message: {type: 'string'},
+        event: {
+          type: 'object',
+          properties: {
+            id: { type: 'number' },
+            event_name: { type: 'string' },
+            description: { type: 'string' },
+            start_time: { type: 'string', format: 'date-time' },
+            end_time: { type: 'string', format: 'date-time' },
+            status: { type: 'string' },
+            created_at: { type: 'string', format: 'date-time' },
+            updated_at: { type: 'string', format: 'date-time' },
+          }
+        }
+      },
+    },
+    404: {
+      type: 'object',
+      properties: {
+        message: { type: 'string' },
+      },
+    },
+    400: {
+      type: 'object',
+      properties: {
+        message: { type: 'string' },
+      },
+    },
+    500: {
+      type: 'object',
+      properties: {
+        message: { type: 'string' },
+        error: { type: 'string' },
+      },
+    },
+  },
+} as const;
