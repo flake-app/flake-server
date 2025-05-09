@@ -3,7 +3,7 @@ export interface EventModel {
   created_by: number;
   event_name: string;
   description?: string;
-  start_name: Date;
+  start_time: Date;
   end_time?: Date;
   status: 'ONGOING' | 'CANCELLED' | 'COMPLETED' | 'FLAKED';
   created_at: Date;
